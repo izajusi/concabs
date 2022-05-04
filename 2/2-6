@@ -1,0 +1,23 @@
+a. Describe subtract-the-first method:
+
+f(n) = f(n - 1) - n
+     = f(n - 2) - (n - 1) - n
+     = f(n - 3) - (n - 2) - (n - 1) - n
+     = 0 - (n * n) + k/2(2 + (k - 1)) // for k = (n - 1)
+     = -n^2 + k/2(k + 1)
+     = -n^2 + (k^2 + k)/2
+     = -n^2 + ((n - 1)^2 + (n - 1))/2
+     = -n^2 + (n^2 - 2n + 1 + n - 1)/2
+     = (-2n^2 + n^2 -n)/2
+     = (-n^2 - n)/2
+     = -n(n + 1)/2
+
+c. What happens when the substraction order of subtract-the-first is reversed:
+
+f(n) = n - f(n - 1)
+     = n - (n - 1) + f(n - 2)
+     = n - (n - 1) + (n - 2) - f(n - 3)
+     = n - (n - 1) + (n - 2) - (n - 3) + f(n - 4)
+
+// if even n - n/2 => n/2
+// if odd (n + 1)/2

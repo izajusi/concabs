@@ -1,0 +1,24 @@
+Procedure:
+
+```scheme
+(define square ; another version that doesn’t work
+  (lambda (n)
+    (if (= n 0)
+        0
+        (+ (square (- n 2))
+           (- (* 4 n) 4)))))
+```
+
+Base case:
+`(square 0)` terminates with the value of 0.
+
+Induction hypothesis:
+Assume `(square k)` terminates with the value k^2 for all k in the range 0 <= k <= n.
+
+Inductive step:
+Consider evaluating `(square n)`, with n > 0: 
+
+- This will terminate if the evaluation of `(square (- n 2))` does, and;
+- Will have the the same the same value as `(+ (square (- n 2)) (- (* 4 n) 4))`.
+
+`(- n 2)` evaluates to n - 2. Since `(- n 2)` < 0 for the value of n = 1, then based on our induction hypothesis, then this function will not terminate.
