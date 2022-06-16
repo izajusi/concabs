@@ -200,3 +200,60 @@
     (make-labeled-value
      (name->labels (name value))
      value)))
+
+; Exercise 8.27
+(define values-with-first-label
+  (lambda (labeled-values label)
+    (map strip-one-label
+         (filter
+          (lambda (labeled-value)
+            (= label (first-label labeled-value)))
+          labeled-values))))
+
+; Exercise 8.28
+(define categorize-by-first-label
+  (lambda (labeled-values)
+    (map
+     (lambda (label)
+       (values-with-first-label labeled-values label))
+     '(2 3 4 5 6 7 8 9))))
+
+; Exercise 8.29
+(define remove
+  (lambda (predicate lst)
+    (filter
+     (lambda (elem)
+       (not (predicate elem)))
+     lst)))
+
+(define labeled-values->trie
+  (lambda (labeled-values)
+    (if (null? labeled-values)
+        (make-empty-trie)
+        (make-nonempty-trie
+         (map value
+              (filter empty-labels? labeled-values))
+         (map labeled-values->trie
+              (categorize-by-first-label
+               (remove empty-labels? labeled-values)))))))
+
+(define make-phone-trie
+  (lambda ()
+    (labeled-values->trie
+     (map value->labeled-value
+          (list
+           (make-person 'lindt             7483)
+           (make-person 'cadbury           7464)
+           (make-person 'wilbur            7466)
+           (make-person 'hershey           7482)
+           (make-person 'spruengli         7009)
+           (make-person 'merkens           7469)
+           (make-person 'baker             7465)
+           (make-person 'ghiradelli        7476)
+           (make-person 'tobler            7481)
+           (make-person 'suchard           7654)
+           (make-person 'callebaut         7480)
+           (make-person 'ritter            7479)
+           (make-person 'maillard          7477)
+           (make-person 'see               7463)
+           (make-person 'perugina          7007))))))
